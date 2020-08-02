@@ -1,0 +1,61 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    <header class="jumbotron" id="home-heading">
+        <h1 style="font-size: xxx-large;">Blogs</h1>
+    </header>
+    <div class="container">
+        <ul>    
+            {% for post in posts %}
+                <div class="border border-info rounded" id="blog-post">
+                    <div class="alert alert-primary">
+                        <h3>
+                            <img 
+                                src="{{ post.author.profile.image.url }}" 
+                                class="rounded-circle"
+                                style="height: 50px; width: 50px;">
+                            <a href="{% url 'post-detail' post.id %}">{{ post.title }}</a>
+                        </h3>
+                    </div>
+                    <div id="blog-content">
+                        <li style="text-align: center;">
+                            Author: <a href="{% url 'user-post' post.author.username %}"><strong>{{post.author}}</strong></a>
+                        </li>
+                        <li style="text-align: center; margin-bottom: 10px;">
+                            Publishing Date: <strong>{{post.date_posted | date:'F j, Y, g:i A'}}</strong>
+                        </li>
+                        <li class="pr-2">{{post.content}}</li>
+                    </div>
+                </div>
+            {% endfor %}
+            {% if is_paginated %}
+                <nav aria-label="Pagination-for-posts">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                            <li class="page-item"><a class="page-link" href="?page= {{ page_obj.previous_page_number }}">Previous</a></li>            
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range  %}
+                            {% if page_obj.number == num %}
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="?page={{ num }}">{{ num }}<span class="sr-only">(current)</span></a>
+                                </li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}   
+        </ul>     
+    </div>
+{% endblock content %}

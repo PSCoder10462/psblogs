@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<div class="pl-2 pr-2 col-md-8" style="margin-left: 15%;">
+
+    <header>
+        <h2>You have been logged out!</h2>
+    </header>
+
+    <footer class="border-top pt-1 pb-2 pr-2">
+        <small class="text-muted">
+            Log In again?<a href="{% url 'login' %}" class="ml-2">Log In</a>
+        </small>
+    </footer>
+
+</div>
+
+{% endblock content %}

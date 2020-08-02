@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    <header class="jumbotron" id="home-heading">
+        <h1 style="font-size: xxx-large;">Blogs</h1>
+    </header>
+    <div class="container">
+        <ul>    
+            <div class="border border-info rounded" id="blog-post">
+                <div class="alert alert-primary">
+                    <h3 class="d-inline">
+                        <img 
+                            src="{{ object.author.profile.image.url }}" 
+                            class="rounded-circle"
+                            style="height: 50px; width: 50px;">
+                        {{object.title}}
+                    </h3>
+                    {% if object.author == user %}
+                    <a href="{% url 'post-update' object.id %}">
+                    <button class="btn btn-sm ml-2 float-right btn-warning mb-2">Update</button>
+                    </a>
+                    <a href="{% url 'post-delete' object.id %}">
+                    <button class="btn btn-sm ml-2 float-right btn-danger mb-2">Delete</button>
+                    </a>
+                    {% endif %}
+                </div>
+                <div id="blog-content">
+                    <li style="text-align: center;">
+                        Author: <a href="{% url 'user-post' object.author.username %}"><strong>{{post.author}}</strong></a>
+                    </li>
+                    <li style="text-align: center; margin-bottom: 10px;">
+                        Publishing Date: <strong>{{object.date_posted | date:'F j, Y, g:i A'}}</strong>
+                    </li>
+                    <li>{{object.content}}</li>
+                </div>
+            </div>
+        </ul>
+    </div>
+{% endblock content %}
