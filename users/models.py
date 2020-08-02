@@ -14,7 +14,6 @@ class Profile(models.Model):
         super().save(*args, **kwargs)
 
         img = Image.open(self.image.path)
-        img = img.convert('RGBA')
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
             img.thumbnail(output_size)
