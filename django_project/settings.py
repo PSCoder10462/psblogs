@@ -20,12 +20,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'i#=!ru5_2hb#**s2_dbznk_c!v054xt+^f$72+26u5aw(7@2qu'
+SECRET_KEY = os.environ.get('PSBLOGS_SECRETKEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'psblogsapp.herokuapp.com', 
+]
 
 
 # Application definition
